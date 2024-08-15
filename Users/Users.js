@@ -18,9 +18,9 @@ const new_age = prompt('New Age:');
 const new_email = prompt('New Email:')
 
 // TO CREATE NEW USERS AUTOMATICALLY WITH RANDOM NAMES, AGES AND EMAILS
-const new_user_maker = ()=> {
+    function make_new_users() {
     let i = 1;
-    for (i <= 10; i++) {
+    for (i <= 10; i++;) {
         
     }
 }
