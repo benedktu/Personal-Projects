@@ -3,6 +3,8 @@
 // 2. Allow for dynamically (manually or automated) setting the first name, last name, age and role during new object creation,
 // 3. 
 
+// https://stackoverflow.com/questions/2443901/random-object-generator-in-javascript
+
 const staff_list = [];
 
 class Staff {
