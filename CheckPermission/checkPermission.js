@@ -1,24 +1,22 @@
-class data {
-    constructor (name, age, accessAllowed, gender) {
+class Data {
+    constructor (name, age, gender) {
         this.name = name;
         this.age = age;
-        this.accessAllowed =  accessAllowed;
         this.gender = gender;
     }
     checkPermission() {
-        if (this.age >= 18) {
+        if (this.age >= 18 && this.gender == "male") {
            return true;
         } else  {
            return false;
         }
      }
-
      consoler() {
        return this;
      }
 }
 
-let user  = new data('John', 25, true, 'male');
+let user  = new Data('John', 25, 'male'); // Object instance of Data Class
 if  (user.checkPermission()) {
     console.log('Access granted');
 }
