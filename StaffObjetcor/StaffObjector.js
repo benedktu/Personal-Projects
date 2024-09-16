@@ -1,3 +1,5 @@
+// INCOMPLETE
+
 // This is a program in design aimed to achieve:
 // 1. Automatically create new objects with object names assigned in the format: 'staff_' + a whole number, depending on the desired number of objects,
 // 2. Allow for dynamically (manually or automated) setting the first name, last name, age and role during new object creation,
