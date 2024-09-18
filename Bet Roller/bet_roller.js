@@ -51,7 +51,7 @@ class Rolling {
           } else {
                return `ERROR:  Max Number of bets (${this.totalBets}) is less than ${this.winIndex}`;
           }
-     }
+     };
 }
 let roll = new Rolling(5000, 1.7, 20, 6); 
 console.log(roll.rollBet())
