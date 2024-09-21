@@ -19,9 +19,7 @@
 
      5.   This program will also calculate the total amount of money staked in the process. 
 */
-
-
-const winnings = []; // Array to hold  all potential winnings at each iteration
+const winnings = []; // Array to hold  all potential winnings at each iteration.
 class Rolling {
      constructor (startingAmount, totalOdds, totalBets, winIndex) {
           this.startingAmount  = startingAmount;  //  Starting capital or initial stake.
@@ -37,11 +35,11 @@ class Rolling {
           return winnings;
      };
      findWinAt = function() { 
-          const nullInput =   //   Intended to catch output errors resulting through wrong input types, negative integers, zeroes or no inputs at all.
-          this.startingAmount <=  0 || this.startingAmount == undefined || this.startingAmount == null ||
-          this.totalOdds <= 0 || this.totalOdds == undefined || this.totalOdds == null ||    
-          this.totalBets <= 0 || this.totalBets == undefined ||  this.totalBets == null ||    
-          this.winIndex <= 0 || this.winIndex == undefined  || this.winIndex == null;                         
+          const nullInput =   //   Intended to catch output errors resulting through wrong input types (inc. strings, null, undefined, negative numbers) and no inputs at all.
+          this.startingAmount <  0 || this.startingAmount == undefined || this.startingAmount == null || _.isString(this.startingAmount) == true ||
+          this.totalOdds <= 0 || this.totalOdds == undefined || this.totalOdds == null || _.isString(this.totalOdds) == true ||    
+          this.totalBets < 0 || this.totalBets == undefined ||  this.totalBets == null || _.isString(this.totalBets) == true ||    
+          this.winIndex <= 0 || this.winIndex == undefined  || this.winIndex == null || _.isString(this.winIndex) == true;                         
      
           if (nullInput) {
                return "ERROR: Invalid / Incomplete Input Value";
@@ -52,7 +50,10 @@ class Rolling {
                return `ERROR:  Max Number of bets (${this.totalBets}) is less than ${this.winIndex}`;
           }
      };
+     findTotalStakes = function() { // When called, should find the grand total of all stakes to be made across all iterations.
+        
+     }
 }
-let roll = new Rolling(5000, 1.7, 20, 6); 
+let roll = new Rolling(6000, 3, 1, 4); // (startingAmount, odds, MaxBets, winAmountAt) 
 console.log(roll.rollBet())
-console.log(roll.findWinAt());
+console.log(roll.findWinAt()); 
