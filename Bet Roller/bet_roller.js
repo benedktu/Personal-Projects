@@ -30,7 +30,6 @@ class BetRollerApp {
         this.winningsAsInts = [];    // Array to store all potenial winnings at each iteration as Integers (to be used for array evaluations).
         this.indexAt;
     };
-
     isNotValid = function () {  //   Intended to check for errors resulting through invalid input types (inc. strings, null, undefined, negative numbers) and no inputs at all.
         return (
             this.firstStake < 0 || this.firstStake == undefined || this.firstStake == null || _.isString(this.firstStake) == true ||
@@ -40,7 +39,6 @@ class BetRollerApp {
             this.winIndex <= 0 || this.winIndex == undefined || this.winIndex == null || _.isString(this.winIndex) == true
         )
     };
-
     rollBet = function () {
         if (this.isNotValid()) {  // Checks for input errors and returns error message.
             return "ERROR: Invalid / Incomplete Input Value";
@@ -53,7 +51,6 @@ class BetRollerApp {
         }
         return this.winningsAsInts, this.winnings;
     };
-
     findWinAt = function () {   // Returns the winning amount at a user-specified iteration level. 
         if (this.isNotValid()) {  // Checks for input errors and returns error message.
             return "ERROR: Invalid / Incomplete Input Value";
@@ -64,8 +61,6 @@ class BetRollerApp {
             return `ERROR:  Max Number of bets (${this.totalBets}) is less than ${this.winIndex}`;   // Returns if the required index is greater than the total number of games.
         }
     };
-
-
     findTotalStakes = function() { // When called, should find the grand total of all stakes to be made across all iterations. // Making use of winningsAsInts array.
         let totalStakes = 0;
         if (this.isNotValid()) {  // Checks for input errors and returns error message.
@@ -77,7 +72,6 @@ class BetRollerApp {
         }
         return `₦${totalStakes + this.firstStake}`;
     };
-
     findTotalProfit = function() { // When called, should find the grand total of all net profit to be made after all iterations. // Making use of winningsAsInts array.
         if (this.isNotValid()) {  // Checks for input errors and returns error message.
             return "ERROR: Invalid / Incomplete Input Value";
@@ -86,9 +80,7 @@ class BetRollerApp {
             return `₦${totalProfit}`;
         }
     }
-}
-
-// END OF CLASS DEFINITION
+} // END OF CLASS DEFINITION
 
 // TESTING ALL METHODS WITH VARIOUS INPUTS
 let roll = new BetRollerApp(500, 2, 8, 6); // (startingAmount, odds, MaxBets, winAmountAt) 
@@ -102,5 +94,3 @@ console.log(roll3odds.rollBet())
 console.log(roll3odds.findWinAt());
 console.log(roll3odds.findTotalStakes());
 console.log(roll3odds.findTotalProfit());
-
-console.log(roll3odds.findAt(5));
