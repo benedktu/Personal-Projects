@@ -1,13 +1,10 @@
-// NOTE TO SELF: Debug for infinite winning amounts and invalid types
-
-
 /*    
  ABOUT THIS PROGRAM:
      1.   A rollover in sports betting involves staking a 'starting capital' or base amount on a fixed number of odds or price, 
           then restaking the profits made repeatedly. A technique used to 'grow' the money. Usually done for a fixed number of repitions. 
 
      2.   This program calculates the final amount after a fixed number of rollovers (iterations), given the starting capital, 
-          a fixed number of odds, and the number of iterations.This program is designed to ensure there is a fixed upper limit if iterations.
+          a fixed number of odds, and the number of iterations. This program can be designed to ensure there is a fixed upper limit of iterations.
 
      3.   This program will also store each potential winning amount at every step of the iteration in an array.
 
@@ -21,14 +18,15 @@
 */
 
 
-const winnings = []; // Array to hold  all potential winnings at each iteration.
-
-class Rolling {
+class BetRoller {
      constructor (startingAmount, totalOdds, totalBets, winIndex) {
           this.startingAmount  = startingAmount;  //  Starting capital or initial stake.
+          this.firstStake = startingAmount;   //  First stake amount. Holds the same value as this.startingAmount but un-altered.
           this.totalOdds = totalOdds;   //  Total odds or price.
           this.totalBets = totalBets;   //  Total number of bet iterations. Intended to be a fixed maximun amount.
           this.winIndex = winIndex;     //   Index of the winning amount in the array.
+          this.winnings = []; // Array to hold all potential winnings at each iteration.
+          this.winningsAsInts = [];    // Array to store all potenial winnings at each iteration as Integers (to be used for array evaluations).
      };
 
      isNotValid = function() {  //   Intended to check for errors resulting through invalid input types (inc. strings, null, undefined, negative numbers) and no inputs at all.
@@ -43,25 +41,47 @@ class Rolling {
      rollBet = function() { 
           for (let i = 1; i <= this.totalBets; i++) {  //  Loop from he first iteration to the intended  number of iterations. Or max iterations.
                this.startingAmount = Math.floor(this.startingAmount * this.totalOdds);    // Calculates the new amount after each iteration.
-               winnings.push(`${i}. ₦${this.startingAmount}`);    //  Stores the new amount in the array.
+               this.winnings.push(`${i}. ₦${this.startingAmount}`);     //  Stores the new amount in the array. 
+                this.winningsAsInts.push(this.startingAmount);
           }
-           return winnings;
+           return this.winnings;
      };
-     findWinAt = function() { 
-          if (this.isNotValid()) {
+
+     findWinAt = function() {   // Returns the winning amount at a user-specified iteration level. 
+          if (this.isNotValid()) {  // Checks for input errors and returns error message.
                return "ERROR: Invalid / Incomplete Input Value";
           }
           else if (this.totalBets >= 0 && this.winIndex <= this.totalBets) {
-                    return winnings.at(this.winIndex - 1);
+                    return this.winnings.at(this.winIndex - 1);
           } else {
-               return `ERROR:  Max Number of bets (${this.totalBets}) is less than ${this.winIndex}`;
+               return `ERROR:  Max Number of bets (${this.totalBets}) is less than ${this.winIndex}`;   // Returns if the required index is greater than the total number of games.
           }
      };
-     findTotalStakes = function() { // When called, should find the grand total of all stakes to be made across all iterations.
-        
-     }
+
+     findTotalStakes = function() { // When called, should find the grand total of all stakes to be made across all iterations. // Making use of winningsAsInts array.
+        let totalStakes = 0;
+        for (let i = 0; i < this.winningsAsInts.length - 1; i++) {  
+            totalStakes += this.winningsAsInts[i];   // Generates all stakes made accross all iterations including the initial staking capital.
+        }
+        return `₦${totalStakes + this.firstStake}`;
+     };
+
+     findTotalProfit =  function() { // When called, should find the grand total of all net profit to be made after all iterations. // Making use of winningsAsInts array.
+        let totalProfit = this.winningsAsInts[this.winningsAsInts.length - 1] - this.firstStake;    // May use the variable later.
+        return `₦${totalProfit}`;
+    }
 }
-let roll = new Rolling(2000, 3, 5, 4); // (startingAmount, odds, MaxBets, winAmountAt) 
+
+
+// TESTING ALL METHODS WITH VARIOUS INPUTS
+let roll = new BetRoller(500, 2, 8, 6); // (startingAmount, odds, MaxBets, winAmountAt) 
 console.log(roll.rollBet())
 console.log(roll.findWinAt()); 
 console.log(roll.findTotalStakes());
+console.log(roll.findTotalProfit());
+
+let roll3odds = new BetRoller(500, 3,  8, 6); // (startingAmount, odds, MaxBets, winAmountAt)
+console.log(roll3odds.rollBet())
+console.log(roll3odds.findWinAt()); 
+console.log(roll3odds.findTotalStakes());
+console.log(roll3odds.findTotalProfit());
