@@ -19,7 +19,10 @@
 
      5.   This program will also calculate the total amount of money staked in the process. 
 */
+
+
 const winnings = []; // Array to hold  all potential winnings at each iteration.
+
 class Rolling {
      constructor (startingAmount, totalOdds, totalBets, winIndex) {
           this.startingAmount  = startingAmount;  //  Starting capital or initial stake.
@@ -27,21 +30,25 @@ class Rolling {
           this.totalBets = totalBets;   //  Total number of bet iterations. Intended to be a fixed maximun amount.
           this.winIndex = winIndex;     //   Index of the winning amount in the array.
      };
+
+     isNotValid = function() {  //   Intended to check for errors resulting through invalid input types (inc. strings, null, undefined, negative numbers) and no inputs at all.
+            return (
+                this.startingAmount <  0 || this.startingAmount == undefined || this.startingAmount == null || _.isString(this.startingAmount) == true ||
+                this.totalOdds <= 0 || this.totalOdds == undefined || this.totalOdds == null || _.isString(this.totalOdds) == true ||    
+                this.totalBets < 0 || this.totalBets == undefined ||  this.totalBets == null || _.isString(this.totalBets) == true ||    
+                this.winIndex <= 0 || this.winIndex == undefined  || this.winIndex == null || _.isString(this.winIndex) == true
+            )
+     };
+
      rollBet = function() { 
           for (let i = 1; i <= this.totalBets; i++) {  //  Loop from he first iteration to the intended  number of iterations. Or max iterations.
                this.startingAmount = Math.floor(this.startingAmount * this.totalOdds);    // Calculates the new amount after each iteration.
                winnings.push(`${i}. ₦${this.startingAmount}`);    //  Stores the new amount in the array.
-          }          
-          return winnings;
+          }
+           return winnings;
      };
      findWinAt = function() { 
-          const nullInput =   //   Intended to catch output errors resulting through wrong input types (inc. strings, null, undefined, negative numbers) and no inputs at all.
-          this.startingAmount <  0 || this.startingAmount == undefined || this.startingAmount == null || _.isString(this.startingAmount) == true ||
-          this.totalOdds <= 0 || this.totalOdds == undefined || this.totalOdds == null || _.isString(this.totalOdds) == true ||    
-          this.totalBets < 0 || this.totalBets == undefined ||  this.totalBets == null || _.isString(this.totalBets) == true ||    
-          this.winIndex <= 0 || this.winIndex == undefined  || this.winIndex == null || _.isString(this.winIndex) == true;                         
-     
-          if (nullInput) {
+          if (this.isNotValid()) {
                return "ERROR: Invalid / Incomplete Input Value";
           }
           else if (this.totalBets >= 0 && this.winIndex <= this.totalBets) {
@@ -54,6 +61,7 @@ class Rolling {
         
      }
 }
-let roll = new Rolling(6000, 3, 1, 4); // (startingAmount, odds, MaxBets, winAmountAt) 
+let roll = new Rolling(2000, 3, 5, 4); // (startingAmount, odds, MaxBets, winAmountAt) 
 console.log(roll.rollBet())
 console.log(roll.findWinAt()); 
+console.log(roll.findTotalStakes());
