@@ -13,9 +13,9 @@
 
      5.   This program will ensure to catch type errors during input.
 
-     6.   This program will also calculate the total amount staked at each iteration.
+     6.   This program will calculate the total amount staked at each iteration.
 
-     7.   This program will also calculate the total amount of money staked in the process. 
+     7.   This program will calculate the total amount of money staked in the process. 
 */
 
 // BEGINNING OF CLASS DEFINITION
@@ -58,7 +58,7 @@ class BetRollerApp {
         else if (this.totalBets >= 0 && this.winIndex <= this.totalBets) {
             return this.winnings.at(this.winIndex - 1);
         } else {
-            return `ERROR:  Max Number of bets (${this.totalBets}) is less than ${this.winIndex}`;   // Returns if the required index is greater than the total number of games.
+            return `ERROR: Max Number of bets (${this.totalBets}) is less than ${this.winIndex}`;   // Returns if the required index is greater than the total number of games.
         }
     };
     findTotalStakes = function() { // When called, should find the grand total of all stakes to be made across all iterations. // Making use of winningsAsInts array.
@@ -83,7 +83,7 @@ class BetRollerApp {
 } // END OF CLASS DEFINITION
 
 // TESTING ALL METHODS WITH VARIOUS INPUTS
-let roll = new BetRollerApp(500, 2, 8, 6); // (startingAmount, odds, MaxBets, winAmountAt) 
+let roll = new BetRollerApp(10000, 1.8, 8, 6); // (startingAmount, odds, MaxBets, winAmountAt) 
 console.log(roll.rollBet())
 console.log(roll.findWinAt());
 console.log(roll.findTotalStakes());
