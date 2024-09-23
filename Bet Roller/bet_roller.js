@@ -80,17 +80,11 @@ class BetRollerApp {
             return `₦${totalProfit}`;
         }
     }
-} // END OF CLASS DEFINITION
+} // END OF CLASS DEFINITION  
 
 // TESTING ALL METHODS WITH VARIOUS INPUTS
-let roll = new BetRollerApp(10000, 1.8, 8, 6); // (startingAmount, odds, MaxBets, winAmountAt) 
+let roll = new BetRollerApp(3000, 1.5, 8, 6); // (startingAmount, odds, MaxBets, winAmountAt) 
 console.log(roll.rollBet())
 console.log(roll.findWinAt());
 console.log(roll.findTotalStakes());
 console.log(roll.findTotalProfit());
-
-let roll3odds = new BetRollerApp(500, 3, 8, 6); // (startingAmount, odds, MaxBets, winAmountAt)
-console.log(roll3odds.rollBet())
-console.log(roll3odds.findWinAt());
-console.log(roll3odds.findTotalStakes());
-console.log(roll3odds.findTotalProfit());
